@@ -1,13 +1,13 @@
 --STORED PROCEDURE; 
---SQL sorgularýný ve iþlemlerini veritabanýnda isim vererek saklamamýzý saðlar.
---Bir sorguyu tekrar tekrar yazmak yerine procedure'ü çaðýrýrýz.
+--SQL sorgularini ve islemlerini veritabaninda isim vererek saklamamizi saglar.
+--Bir sorguyu tekrar tekrar yazmak yerine procedure'ü cagırırız.
 
 CREATE PROCEDURE usp_GetSalesbyYear 
 	@Year INT
 		
 AS
 BEGIN
-	SET NOCOUNT ON -- Hatalarý engellemek ve performansý artýrmak için(Row Count mesajlarýný bastýrýr).
+	SET NOCOUNT ON -- Hatalari engellemek ve performansi artirmak için(Row Count mesajlarini bastirir).
 IF (
 
 		SELECT 
@@ -28,11 +28,11 @@ BEGIN
 END
 ELSE
 BEGIN
-	PRINT 'Bu yýla ait satýþ bulunamadý.'
+	PRINT 'Bu yila ait satis bulunamadi.'
 END
 END
 
-exec usp_GetSalesbyYear 2012  -- Çaðýrma için kullanýmý.
+exec usp_GetSalesbyYear 2012  -- Çagirma için kullanimi.
 
 
 CREATE OR ALTER PROCEDURE usp_GetSalesByYear
@@ -45,7 +45,7 @@ BEGIN
        OR @Year > (select year(max(orderdate)) from sales.salesorderheader)
     BEGIN
         PRINT 'Geçersiz yýl.';
-        RETURN; -- Procedure'yi sonlandýrýr.
+        RETURN; -- Procedure'yi sonlandirir.
     END
 
     IF (SELECT 
@@ -64,7 +64,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        PRINT 'Bu yýla ait satýþ bulunamadý.';
+        PRINT 'Bu yila ait satýis bulunamadi.';
     END
 END
 exec usp_GetSalesByYear 2013
@@ -77,10 +77,10 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- 1. SalesPerson var mý?
+    -- 1. SalesPerson var mi?
     IF EXISTS (select 1 from sales.SalesPerson where BusinessEntityID = @SalesPersonID)
     BEGIN
-        -- 2. Bu yýlda satýþý var mý?
+        -- 2. Bu yilda satis var mi?
         IF EXISTS (select 1 from sales.SalesOrderHeader where SalesPersonID = @SalesPersonID and year(orderdate) = @Year)
         BEGIN
             select
@@ -95,7 +95,7 @@ BEGIN
         END
         ELSE
         BEGIN
-            PRINT 'Bu satýþ temsilcisinin bu yýlda satýþý bulunamadý.';
+            PRINT 'Bu satis temsilcisinin bu yilda satisi bulunamadi.';
         END
     END
     ELSE
@@ -140,9 +140,9 @@ BEGIN
       AND YEAR(OrderDate) = @Year
     GROUP BY SalesPersonID, YEAR(OrderDate);
 
-    IF @@ROWCOUNT = 0 -- @@ROWCOUNT: En son çalýþtýrýlan SQL ifadesinin kaç satýr etkilediðini/döndürdüðünü verir
+    IF @@ROWCOUNT = 0 -- @@ROWCOUNT: En son çalistirilan SQL ifadesinin kaç satir etkiledigini/döndürdügünü verir.
 BEGIN
-    PRINT 'Bu satýþ temsilcisinin bu yýlda satýþý bulunamadý.';
+    PRINT 'Bu satis temsilcisinin bu yilda satisi bulunamadi.';
 END
 END
 EXEC usp_GetSalesPersonPerformance
