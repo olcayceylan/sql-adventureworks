@@ -9,7 +9,7 @@ Sorgular, gerçek dünya senaryolarına uygun olarak kodlanmış olup performans
 ## 📌 Tamamlanan Konular & Pratikler
 * [x] [EXISTS ve NOT EXISTS Kullanımı](./EXISTS_NOT_EXISTS.sql) - Performanslı alt sorgu kontrolleri
 * [x] [MERGE` yapısı](./MERGE.sql) - INSERT/UPDATE/DELETE işlemleri
-* [x] Stored Procedure mimarisi (`CREATE OR ALTER`, Parametreler, `RETURN`)
+* [x] [Stored Procedure mimarisi](./STORED_PROCEDURE.sql) - (`CREATE OR ALTER`, Parametreler, `RETURN`)
 * [x] Akış Kontrolü ve İş Kuralları (`IF / ELSE`, `@@ROWCOUNT`, `SET NOCOUNT ON`)
 
 ## 🔜 Sırada Gelecek Konular (Roadmap)
