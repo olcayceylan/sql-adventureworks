@@ -13,7 +13,7 @@ Sorgular, gerçek dünya senaryolarına uygun olarak kodlanmış olup performans
 * [x] Akış Kontrolü ve İş Kuralları (`IF / ELSE`, `@@ROWCOUNT`, `SET NOCOUNT ON`)
 
 ## 🔜 Sırada Gelecek Konular (Roadmap)
-* [ ] Değişken Yapıları (`DECLARE`, `SET`)
+* [x] Değişken Yapıları (`DECLARE`, `SET`)
 * [ ] Geçici Tablolar (`Temp Table` & `Table Variable`)
 * [ ] Karşılaştırmalı Performans: `CTE` vs `Temp Table` vs `Table Variable` 
 * [ ] `PIVOT` / `UNPIVOT` Dönüşümleri
