@@ -10,9 +10,7 @@ Sorgular, gerçek dünya senaryolarına uygun olarak kodlanmış olup performans
 * [x] [EXISTS ve NOT EXISTS Kullanımı](./EXISTS_NOT_EXISTS.sql) - Performanslı alt sorgu kontrolleri
 * [x] [MERGE` yapısı](./MERGE.sql) - INSERT/UPDATE/DELETE işlemleri
 * [x] [Stored Procedure mimarisi](./STORED_PROCEDURE.sql) - (`CREATE OR ALTER`, Parametreler, `RETURN`)
-
-## 🔜 Sırada Gelecek Konular (Roadmap)
-* [x] Değişken Yapıları (`DECLARE`, `SET`)
+* [x] [Değişken Yapıları](./DECLARE-SET-VERIABLES.sql) - (`DECLARE`, `SET`)
 * [ ] Geçici Tablolar (`Temp Table` & `Table Variable`)
 * [ ] Karşılaştırmalı Performans: `CTE` vs `Temp Table` vs `Table Variable` 
 * [ ] `PIVOT` / `UNPIVOT` Dönüşümleri
