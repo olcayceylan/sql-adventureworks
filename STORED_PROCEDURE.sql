@@ -1,13 +1,13 @@
 --STORED PROCEDURE; 
---SQL sorgularýný ve iþlemlerini veritabanýnda isim vererek saklamamýzý saðlar.
---Bir sorguyu tekrar tekrar yazmak yerine procedure'ü çaðýrýrýz.
+--SQL sorgularÃ½nÃ½ ve iÃ¾lemlerini veritabanÃ½nda isim vererek saklamamÃ½zÃ½ saÃ°lar.
+--Bir sorguyu tekrar tekrar yazmak yerine procedure'Ã¼ Ã§aÃ°Ã½rÃ½rÃ½z.
 
 CREATE PROCEDURE usp_GetSalesbyYear 
 	@Year INT
 		
 AS
 BEGIN
-	SET NOCOUNT ON -- Hatalarý engellemek ve performansý artýrmak için(Row Count mesajlarýný bastýrýr).
+	SET NOCOUNT ON -- HatalarÃ½ engellemek ve performansÃ½ artÃ½rmak iÃ§in(Row Count mesajlarÃ½nÃ½ bastÃ½rÃ½r).
 IF (
 
 		SELECT 
@@ -28,11 +28,11 @@ BEGIN
 END
 ELSE
 BEGIN
-	PRINT 'Bu yýla ait satýþ bulunamadý.'
+	PRINT 'Bu yÃ½la ait satÃ½Ã¾ bulunamadÃ½.'
 END
 END
 
-exec usp_GetSalesbyYear 2012  -- Çaðýrma için kullanýmý.
+exec usp_GetSalesbyYear 2012  -- Ã‡aÃ°Ã½rma iÃ§in kullanÃ½mÃ½.
 
 
 CREATE OR ALTER PROCEDURE usp_GetSalesByYear
@@ -44,8 +44,8 @@ BEGIN
     IF @Year < 2000
        OR @Year > (select year(max(orderdate)) from sales.salesorderheader)
     BEGIN
-        PRINT 'Geçersiz yýl.';
-        RETURN; -- Procedure'yi sonlandýrýr.
+        PRINT 'GeÃ§ersiz yÃ½l.';
+        RETURN; -- Procedure'yi sonlandÃ½rÃ½r.
     END
 
     IF (SELECT 
@@ -64,7 +64,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        PRINT 'Bu yýla ait satýþ bulunamadý.';
+        PRINT 'Bu yÃ½la ait satÃ½Ã¾ bulunamadÃ½.';
     END
 END
 exec usp_GetSalesByYear 2013
@@ -77,10 +77,10 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- 1. SalesPerson var mý?
+    -- 1. SalesPerson var mÃ½?
     IF EXISTS (select 1 from sales.SalesPerson where BusinessEntityID = @SalesPersonID)
     BEGIN
-        -- 2. Bu yýlda satýþý var mý?
+        -- 2. Bu yÃ½lda satÃ½Ã¾Ã½ var mÃ½?
         IF EXISTS (select 1 from sales.SalesOrderHeader where SalesPersonID = @SalesPersonID and year(orderdate) = @Year)
         BEGIN
             select
@@ -95,12 +95,12 @@ BEGIN
         END
         ELSE
         BEGIN
-            PRINT 'Bu satýþ temsilcisinin bu yýlda satýþý bulunamadý.';
+            PRINT 'Bu satÃ½Ã¾ temsilcisinin bu yÃ½lda satÃ½Ã¾Ã½ bulunamadÃ½.';
         END
     END
     ELSE
     BEGIN
-        PRINT 'Geçersiz SalesPersonID.';
+        PRINT 'GeÃ§ersiz SalesPersonID.';
         RETURN;
     END
 END
@@ -116,7 +116,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- 1. SalesPerson gerçekten var mý?
+    -- 1. SalesPerson gerÃ§ekten var mÃ½?
     IF NOT EXISTS
     (
         SELECT 1
@@ -124,11 +124,11 @@ BEGIN
         WHERE BusinessEntityID = @SalesPersonID
     )
     BEGIN
-        PRINT 'Geçersiz SalesPersonID.';
+        PRINT 'GeÃ§ersiz SalesPersonID.';
         RETURN;
     END;
 
-    -- 2. Asýl SELECT
+    -- 2. AsÃ½l SELECT
     SELECT
         SalesPersonID,
         YEAR(OrderDate) AS SalesYear,
@@ -140,9 +140,9 @@ BEGIN
       AND YEAR(OrderDate) = @Year
     GROUP BY SalesPersonID, YEAR(OrderDate);
 
-    IF @@ROWCOUNT = 0 -- @@ROWCOUNT: En son çalýþtýrýlan SQL ifadesinin kaç satýr etkilediðini/döndürdüðünü verir
+    IF @@ROWCOUNT = 0 -- @@ROWCOUNT: En son Ã§alÃ½Ã¾tÃ½rÃ½lan SQL ifadesinin kaÃ§ satÃ½r etkilediÃ°ini/dÃ¶ndÃ¼rdÃ¼Ã°Ã¼nÃ¼ verir
 BEGIN
-    PRINT 'Bu satýþ temsilcisinin bu yýlda satýþý bulunamadý.';
+    PRINT 'Bu satÃ½Ã¾ temsilcisinin bu yÃ½lda satÃ½Ã¾Ã½ bulunamadÃ½.';
 END
 END
 EXEC usp_GetSalesPersonPerformance
