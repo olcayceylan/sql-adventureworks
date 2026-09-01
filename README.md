@@ -12,7 +12,7 @@ Sorgular, gerçek dünya senaryolarına uygun olarak kodlanmış olup performans
 * [x] [Stored Procedure mimarisi](./STORED_PROCEDURE.sql) - (`CREATE OR ALTER`, Parametreler, `RETURN`)
 * [x] [Değişken Yapıları](./DECLARE-SET-VARIABLES.sql) - (`DECLARE`, `SET`)
 * [x] [TEMP TABLE](./05-TEMP_TABLE) - Geçici tablo yapısı
-* [ ] Karşılaştırmalı Performans: `CTE` vs `Temp Table` vs `Table Variable` 
+* [x] [Karşılaştırmalı Performans](./06-CTE-TEMP_TABLE-TABLE_VARIABLE) - (`CTE` vs `Temp Table` vs `Table Variable`)
 * [ ] `PIVOT` / `UNPIVOT` Dönüşümleri
 * [ ] Dynamic SQL Kullanımı
 * [ ] `Trigger` Yapıları
