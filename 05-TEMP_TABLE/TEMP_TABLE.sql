@@ -1,4 +1,4 @@
---TEMPLE TABLE;
+--TEMP TABLE;
 --Veritabaninda kalici olarak yer kaplamayan sadece o anki oturumda var olan "kullan-at" tablolardir.
 -- BAÞINA ' # ' isareti alir.
 --INSERT INTO #Ogrenciler VALUES ('Ali', 85); gibi manuel eklemede yapilabilir.
