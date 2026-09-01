@@ -11,7 +11,7 @@ Sorgular, gerçek dünya senaryolarına uygun olarak kodlanmış olup performans
 * [x] [MERGE` yapısı](./MERGE.sql) - INSERT/UPDATE/DELETE işlemleri
 * [x] [Stored Procedure mimarisi](./STORED_PROCEDURE.sql) - (`CREATE OR ALTER`, Parametreler, `RETURN`)
 * [x] [Değişken Yapıları](./DECLARE-SET-VARIABLES.sql) - (`DECLARE`, `SET`)
-* [ ] Geçici Tablolar (`Temp Table` & `Table Variable`)
+* [x] [TEMP TABLE](./05-TEMP_TABLE) - Geçici tablo yapısı
 * [ ] Karşılaştırmalı Performans: `CTE` vs `Temp Table` vs `Table Variable` 
 * [ ] `PIVOT` / `UNPIVOT` Dönüşümleri
 * [ ] Dynamic SQL Kullanımı
