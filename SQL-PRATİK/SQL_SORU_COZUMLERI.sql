@@ -1,7 +1,7 @@
 use AdventureWorks2022
 
 
---1. Müşterinin en son sipariş ve Gün farkı
+--1. MÃ¼Ã¾terinin en son sipariÃ¾ ve GÃ¼n farkÃ½
 with sonsiparis as 
 ( 
 	select c.CustomerID as musteriid,
@@ -24,10 +24,10 @@ from sonsiparis
 
 
 
---2. Kategori Bazında En Karlı Ürün
+--2. Kategori BazÃ½nda En KarlÃ½ ÃœrÃ¼n
 /*Soru:
-Her ürün kategorisinde en fazla toplam kâr getiren ürünü bulun.
-Kâr = LineTotal - (UnitPrice * 0.7 * OrderQty) formülüyle hesaplanacaktır.*/
+Her Ã¼rÃ¼n kategorisinde en fazla toplam kÃ¢r getiren Ã¼rÃ¼nÃ¼ bulun.
+KÃ¢r = LineTotal - (UnitPrice * 0.7 * OrderQty) formÃ¼lÃ¼yle hesaplanacaktÃ½r.*/
 
 select * from sales.SalesOrderDetail
 select * from Production.Product
@@ -51,10 +51,10 @@ where rn = 1
 
 	
 
- /*3. Aylık Satış ve 3 Aylık Hareketli Ortalama
+ /*3. AylÃ½k SatÃ½Ã¾ ve 3 AylÃ½k Hareketli Ortalama
 
 Soru:
-Her ay için toplam satış tutarını bulun ve aynı zamanda son 3 ayın ortalama satışını gösterin.
+Her ay iÃ§in toplam satÃ½Ã¾ tutarÃ½nÃ½ bulun ve aynÃ½ zamanda son 3 ayÃ½n ortalama satÃ½Ã¾Ã½nÃ½ gÃ¶sterin.
 */
 
 with ayliktoplamsatis as (
@@ -77,9 +77,9 @@ order by yil,ay
 
 
 /*4. Soru:
-Satış temsilcilerinin toplam satışlarını hesaplayın.
-Toplam satışa göre “High”, “Medium” veya “Low” performans sınıfına ayırın.
-Sadece 100’ten fazla sipariş almış temsilciler gösterilsin.*/
+SatÃ½Ã¾ temsilcilerinin toplam satÃ½Ã¾larÃ½nÃ½ hesaplayÃ½n.
+Toplam satÃ½Ã¾a gÃ¶re â€œHighâ€, â€œMediumâ€ veya â€œLowâ€ performans sÃ½nÃ½fÃ½na ayÃ½rÃ½n.
+Sadece 100â€™ten fazla sipariÃ¾ almÃ½Ã¾ temsilciler gÃ¶sterilsin.*/
 
 select * from sales.SalesPerson
 select * from person.person
@@ -103,7 +103,7 @@ having count(soh.salesorderid) > 100
 
 
 /*5. Soru:
-AdventureWorks’te henüz hiç siparişi olmayan ürünleri listeleyin.*/
+AdventureWorksâ€™te henÃ¼z hiÃ§ sipariÃ¾i olmayan Ã¼rÃ¼nleri listeleyin.*/
 
 
 select p.ProductID, p.name from Production.Product p
@@ -111,10 +111,10 @@ where not exists (select 1 from sales.SalesOrderDetail soh where p.productid = s
 
 
 
-/*6. Aynı Gün Birden Fazla Sipariş Veren Müşteriler
+/*6. AynÃ½ GÃ¼n Birden Fazla SipariÃ¾ Veren MÃ¼Ã¾teriler
 Soru:
-Aynı gün içinde birden fazla sipariş veren müşterileri bulun.
-Müşteri adı, tarih ve sipariş sayısını listeleyin.*/
+AynÃ½ gÃ¼n iÃ§inde birden fazla sipariÃ¾ veren mÃ¼Ã¾terileri bulun.
+MÃ¼Ã¾teri adÃ½, tarih ve sipariÃ¾ sayÃ½sÃ½nÃ½ listeleyin.*/
 
 select * from sales.customer
 select * from person.person
@@ -122,7 +122,7 @@ select * from sales.SalesOrderDetail
 select * from sales.SalesOrderHeader
 
 select p.FirstName as musteriAdi,
-	   cast(soh.orderdate as date) as siparistarihi, --Aynı gün için date e düşürülmeli.  --(orderdate diye alsaydık direkt cast yapmadan, saatide alacağından karışacaktı)
+	   cast(soh.orderdate as date) as siparistarihi, --AynÃ½ gÃ¼n iÃ§in date e dÃ¼Ã¾Ã¼rÃ¼lmeli.  --(orderdate diye alsaydÃ½k direkt cast yapmadan, saatide alacaÃ°Ã½ndan karÃ½Ã¾acaktÃ½)
 	   count(soh.salesorderid) as siparissayisi
 from sales.SalesOrderHeader soh 
 join sales.customer c
@@ -133,11 +133,11 @@ group by p.FirstName, soh.OrderDate
 having count(soh.SalesOrderID) > 1
 
 
-/*7. Ortalama Fiyatın Üzerinde Satılan Ürünler
+/*7. Ortalama FiyatÃ½n Ãœzerinde SatÃ½lan ÃœrÃ¼nler
 
 Soru:
-Satış detaylarındaki ortalama birim fiyatın üzerinde satılmış ürünleri listeleyin.
-Ürün adı, birim fiyat ve farkını gösterin.*/
+SatÃ½Ã¾ detaylarÃ½ndaki ortalama birim fiyatÃ½n Ã¼zerinde satÃ½lmÃ½Ã¾ Ã¼rÃ¼nleri listeleyin.
+ÃœrÃ¼n adÃ½, birim fiyat ve farkÃ½nÃ½ gÃ¶sterin.*/
 
 
 
@@ -152,18 +152,18 @@ where UnitPrice > ( select avg(unitprice) from sales.SalesOrderDetail)
 
 
 
-/*8. En Son Siparişten Bu Yana Geçen Gün Sayısı
+/*8. En Son SipariÃ¾ten Bu Yana GeÃ§en GÃ¼n SayÃ½sÃ½
 
 Soru:
-Her müşterinin en son sipariş tarihini bulun ve bugüne kadar kaç gün geçtiğini hesaplayın.*/
+Her mÃ¼Ã¾terinin en son sipariÃ¾ tarihini bulun ve bugÃ¼ne kadar kaÃ§ gÃ¼n geÃ§tiÃ°ini hesaplayÃ½n.*/
 
 select CustomerID, max(orderdate) as son_gun, DATEDIFF(day, max(orderdate), GETDATE()) as gun_farki
 from sales.SalesOrderHeader
 group by CustomerID
 
-/*9. Ürün Bazında En Yüksek Satış Kalemi
+/*9. ÃœrÃ¼n BazÃ½nda En YÃ¼ksek SatÃ½Ã¾ Kalemi
 Soru:
-Her ürün için en yüksek tutarlı satış kalemini (LineTotal) bulun.*/
+Her Ã¼rÃ¼n iÃ§in en yÃ¼ksek tutarlÃ½ satÃ½Ã¾ kalemini (LineTotal) bulun.*/
 --1.
 select urun,	
 	   tutar   
@@ -181,10 +181,10 @@ order by 1
 
 
 
-/*10. Yıllık Satış Artış Yüzdesi
+/*10. YÃ½llÃ½k SatÃ½Ã¾ ArtÃ½Ã¾ YÃ¼zdesi
 
 Soru:
-Yıllara göre toplam satış tutarını bulun ve önceki yıla göre artış yüzdesini hesaplayın.*/
+YÃ½llara gÃ¶re toplam satÃ½Ã¾ tutarÃ½nÃ½ bulun ve Ã¶nceki yÃ½la gÃ¶re artÃ½Ã¾ yÃ¼zdesini hesaplayÃ½n.*/
 
 with yilliksatis as 
 (
@@ -199,16 +199,16 @@ select yil, toplam_satis,
         (toplam_satis - LAG(toplam_satis) OVER (ORDER BY yil))
         * 100.0
         / LAG(toplam_satis) OVER (ORDER BY yil),
-        2) as artis_yüzdesi
+        2) as artis_yÃ¼zdesi
 from yilliksatis
 
 
 /*11.
-Her müşterinin toplam sipariş tutarına göre sıralamasını bulun.
-Müşteri adı, toplam sipariş tutarı ve kendi kategorisindeki (örneğin bireysel veya mağaza müşterisi) sırasını gösterin.*/
+Her mÃ¼Ã¾terinin toplam sipariÃ¾ tutarÃ½na gÃ¶re sÃ½ralamasÃ½nÃ½ bulun.
+MÃ¼Ã¾teri adÃ½, toplam sipariÃ¾ tutarÃ½ ve kendi kategorisindeki (Ã¶rneÃ°in bireysel veya maÃ°aza mÃ¼Ã¾terisi) sÃ½rasÃ½nÃ½ gÃ¶sterin.*/
 
 /*
-Her ürün kategorisinde, son 6 ayda en fazla satış adedine ulaşan ürünü bulun.*/
+Her Ã¼rÃ¼n kategorisinde, son 6 ayda en fazla satÃ½Ã¾ adedine ulaÃ¾an Ã¼rÃ¼nÃ¼ bulun.*/
 ;with urun_bilgi as (
 select p.name as urun, pc.name as kategori, count(sod.salesorderid) as satis_adedi
 from sales.SalesOrderDetail sod
@@ -226,8 +226,8 @@ select * from siralama
 where rn = 1
 
 /*12.
-2011 yılından itibaren her yılın en yüksek toplam satış yaptığı ayı bulun.
-Sonuçta yıl, ay ve toplam satış tutarı gösterilsin.*/
+2011 yÃ½lÃ½ndan itibaren her yÃ½lÃ½n en yÃ¼ksek toplam satÃ½Ã¾ yaptÃ½Ã°Ã½ ayÃ½ bulun.
+SonuÃ§ta yÃ½l, ay ve toplam satÃ½Ã¾ tutarÃ½ gÃ¶sterilsin.*/
 
 with AylikSatis as (
 select 
@@ -248,8 +248,8 @@ from AylikSatis
 where rn = 1
 
 /*13.
-Her satış temsilcisinin son sipariş tarihini, toplam satış tutarını ve ortalama sipariş tutarını hesaplayın.
-Sonuçta sadece ortalama siparişi 20.000 TL üzeri olan temsilciler gösterilsin.*/
+Her satÃ½Ã¾ temsilcisinin son sipariÃ¾ tarihini, toplam satÃ½Ã¾ tutarÃ½nÃ½ ve ortalama sipariÃ¾ tutarÃ½nÃ½ hesaplayÃ½n.
+SonuÃ§ta sadece ortalama sipariÃ¾i 20.000 TL Ã¼zeri olan temsilciler gÃ¶sterilsin.*/
 
 
 select 		 
@@ -266,8 +266,8 @@ group by sp.BusinessEntityID, p.FirstName, p.LastName
 having avg(soh.totaldue) > 20000
 
 /*14.
-Hiç satış yapmamış satış temsilcilerini bulun.
-Sadece aktif (geçerli bir departmanla ilişkili) çalışanlar dikkate alınsın.*/
+HiÃ§ satÃ½Ã¾ yapmamÃ½Ã¾ satÃ½Ã¾ temsilcilerini bulun.
+Sadece aktif (geÃ§erli bir departmanla iliÃ¾kili) Ã§alÃ½Ã¾anlar dikkate alÃ½nsÃ½n.*/
 
 select * from HumanResources.EmployeeDepartmentHistory
 select * from HumanResources.Department
@@ -289,9 +289,9 @@ where soh.SalesOrderID is null
 
 
 /*15.
-Her ürün için en son satış tarihinden bu yana kaç gün geçtiğini hesaplayın.
-Ürün adı, son satış tarihi ve geçen gün sayısını gösterin.
-Sonuç gün farkına göre azalan sırada listelensin.*/
+Her Ã¼rÃ¼n iÃ§in en son satÃ½Ã¾ tarihinden bu yana kaÃ§ gÃ¼n geÃ§tiÃ°ini hesaplayÃ½n.
+ÃœrÃ¼n adÃ½, son satÃ½Ã¾ tarihi ve geÃ§en gÃ¼n sayÃ½sÃ½nÃ½ gÃ¶sterin.
+SonuÃ§ gÃ¼n farkÃ½na gÃ¶re azalan sÃ½rada listelensin.*/
 
 select * from Production.Product
 select * from sales.SalesOrderHeader
@@ -308,8 +308,8 @@ join Production.Product p
 	order by GecenGun asc
 
 /*16.
-Müşterilerin sipariş verdikleri yıllara göre toplam sipariş sayılarını bulun.
-Aynı müşterinin farklı yıllardaki sipariş trendini görmek için her müşteri-yıl çifti için ayrı bir satır gösterin.*/
+MÃ¼Ã¾terilerin sipariÃ¾ verdikleri yÃ½llara gÃ¶re toplam sipariÃ¾ sayÃ½larÃ½nÃ½ bulun.
+AynÃ½ mÃ¼Ã¾terinin farklÃ½ yÃ½llardaki sipariÃ¾ trendini gÃ¶rmek iÃ§in her mÃ¼Ã¾teri-yÃ½l Ã§ifti iÃ§in ayrÃ½ bir satÃ½r gÃ¶sterin.*/
 
 select c.customerid, p.FirstName+' '+p.lastname as musteriAdi, year(soh.orderdate) as yil, count(soh.salesorderid) as toplamsiparissayisi
 from sales.SalesOrderHeader soh
@@ -321,7 +321,7 @@ order by CustomerID	, yil
 
 
 /*17.
-Her ürün kategorisi için, o kategoriye ait ürünlerin toplam satış tutarının genel toplam içindeki yüzdesini bulun.*/
+Her Ã¼rÃ¼n kategorisi iÃ§in, o kategoriye ait Ã¼rÃ¼nlerin toplam satÃ½Ã¾ tutarÃ½nÃ½n genel toplam iÃ§indeki yÃ¼zdesini bulun.*/
 with kategorisatis as (
 select pc.productcategoryid, pc.name as kategoriAdi, sum(sod.linetotal) as toplamsatistutari
 from sales.SalesOrderDetail sod
@@ -340,8 +340,8 @@ from kategorisatis
 order by toplamsatistutari desc
 
 /*18.
-Her müşteri için ilk ve son sipariş tarihleri arasındaki farkı (gün olarak) hesaplayın.
-Sonuçta müşteri adı, ilk sipariş tarihi, son sipariş tarihi ve fark gösterilsin.*/
+Her mÃ¼Ã¾teri iÃ§in ilk ve son sipariÃ¾ tarihleri arasÃ½ndaki farkÃ½ (gÃ¼n olarak) hesaplayÃ½n.
+SonuÃ§ta mÃ¼Ã¾teri adÃ½, ilk sipariÃ¾ tarihi, son sipariÃ¾ tarihi ve fark gÃ¶sterilsin.*/
 
 select * from sales.Customer
 select * from person.Person
@@ -349,7 +349,7 @@ select * from sales.SalesOrderHeader
 
 
 select c.customerid, p.FirstName+' '+p.LastName as MusteriAdi, max(soh.orderdate) as SonSiparisTarihi,
-		min(soh.orderdate) as İlkSiparisTarihi,
+		min(soh.orderdate) as ÃlkSiparisTarihi,
 		datediff(day, max(soh.orderdate), min(soh.orderdate)) as GunFarki
 from sales.customer c
 join sales.SalesOrderHeader soh
@@ -360,8 +360,8 @@ join person.person p
 	order by GunFarki 
 
 /*19.
-Her satış temsilcisi için çalıştığı yıl içindeki satış artış yüzdesini hesaplayın.
-Yani, bir önceki yıl ile karşılaştırıldığında artış oranını gösterin.*/
+Her satÃ½Ã¾ temsilcisi iÃ§in Ã§alÃ½Ã¾tÃ½Ã°Ã½ yÃ½l iÃ§indeki satÃ½Ã¾ artÃ½Ã¾ yÃ¼zdesini hesaplayÃ½n.
+Yani, bir Ã¶nceki yÃ½l ile karÃ¾Ã½laÃ¾tÃ½rÃ½ldÃ½Ã°Ã½nda artÃ½Ã¾ oranÃ½nÃ½ gÃ¶sterin.*/
 
 ;with yilliksatis as (
 select sp.BusinessEntityID as TemsilciNo, p.firstname+' '+p.lastname as TemsilciAdi,
@@ -379,8 +379,8 @@ from yilliksatis
 
 
 /*20.
-Her ürünün toplam satış miktarını bulun ve bu miktarı kendi kategorisindeki ortalama satış miktarıyla karşılaştırın.
-Sonuçta ürün adı, kategori adı, toplam satış miktarı ve “Above Average” / “Below Average” olarak sınıflandırma gösterin.*/
+Her Ã¼rÃ¼nÃ¼n toplam satÃ½Ã¾ miktarÃ½nÃ½ bulun ve bu miktarÃ½ kendi kategorisindeki ortalama satÃ½Ã¾ miktarÃ½yla karÃ¾Ã½laÃ¾tÃ½rÃ½n.
+SonuÃ§ta Ã¼rÃ¼n adÃ½, kategori adÃ½, toplam satÃ½Ã¾ miktarÃ½ ve â€œAbove Averageâ€ / â€œBelow Averageâ€ olarak sÃ½nÃ½flandÃ½rma gÃ¶sterin.*/
 ;with urunkategoritoplam as (
 select p.Name as urunAdi, pc.name as kategori, sum(sod.linetotal) as toplamsatis 
 from sales.SalesOrderDetail sod
@@ -403,8 +403,8 @@ from kategoriortalama
 
 
 /*21.
-Her satış temsilcisi için, son 12 ayda yaptığı toplam satış tutarını bulun.
-Aynı zamanda, bir önceki 12 ay ile karşılaştırıldığında artış yüzdesini hesaplayın.*/
+Her satÃ½Ã¾ temsilcisi iÃ§in, son 12 ayda yaptÃ½Ã°Ã½ toplam satÃ½Ã¾ tutarÃ½nÃ½ bulun.
+AynÃ½ zamanda, bir Ã¶nceki 12 ay ile karÃ¾Ã½laÃ¾tÃ½rÃ½ldÃ½Ã°Ã½nda artÃ½Ã¾ yÃ¼zdesini hesaplayÃ½n.*/
 
 select
 *, lag(toplamSatis,1)over(order by yil) as onceki_yil,
@@ -421,7 +421,7 @@ group by sp.BusinessEntityID, year(soh.orderdate),month(soh.orderdate)
 
 
 /*22.
-Her müşteri için, sipariş verdiği ilk ürün ve o ürünün kategorisini bulun.*/
+Her mÃ¼Ã¾teri iÃ§in, sipariÃ¾ verdiÃ°i ilk Ã¼rÃ¼n ve o Ã¼rÃ¼nÃ¼n kategorisini bulun.*/
 with musteriilkurun as (
 select soh.customerid as Musteri, p.name as urunAdi, pc.ProductCategoryID as urunkategorisi, soh.orderdate,
 		ROW_NUMBER()OVER(PARTITION BY soh.customerid ORDER BY soh.orderdate, soh.salesorderid, sod.salesorderdetailid) as rn
@@ -457,8 +457,8 @@ where sira = 1
 select * from sales.salesorderdetail
 
 /*23.
-Her ürün kategorisi için, satış sayısı bakımından en popüler 3 ürünü bulun.
-Kategori adı, ürün adı, toplam satış miktarı ve sırasını gösterin.*/
+Her Ã¼rÃ¼n kategorisi iÃ§in, satÃ½Ã¾ sayÃ½sÃ½ bakÃ½mÃ½ndan en popÃ¼ler 3 Ã¼rÃ¼nÃ¼ bulun.
+Kategori adÃ½, Ã¼rÃ¼n adÃ½, toplam satÃ½Ã¾ miktarÃ½ ve sÃ½rasÃ½nÃ½ gÃ¶sterin.*/
 select
 *
 from
@@ -479,7 +479,7 @@ where sira <= 3
 
 
 /*24.
-2011 yılında yapılan tüm siparişlerde, her müşterinin ortalama sipariş tutarını ve aynı yıl içindeki genel ortalama sipariş tutarına göre farkını bulun*/
+2011 yÃ½lÃ½nda yapÃ½lan tÃ¼m sipariÃ¾lerde, her mÃ¼Ã¾terinin ortalama sipariÃ¾ tutarÃ½nÃ½ ve aynÃ½ yÃ½l iÃ§indeki genel ortalama sipariÃ¾ tutarÃ½na gÃ¶re farkÃ½nÃ½ bulun*/
 with yillikortsiparis as
 (
 select soh.customerid, avg(soh.totaldue) as OrtTutar
@@ -497,7 +497,7 @@ from yillikortsiparis
 
 
 /*25.
-Hiç siparişi bulunmayan müşterileri listeleyin, ancak sadece sistemde aktif (StoreID IS NULL) olan bireysel müşterileri gösterin.*/
+HiÃ§ sipariÃ¾i bulunmayan mÃ¼Ã¾terileri listeleyin, ancak sadece sistemde aktif (StoreID IS NULL) olan bireysel mÃ¼Ã¾terileri gÃ¶sterin.*/
 
 select c.customerid
 from sales.customer c
@@ -506,7 +506,7 @@ where not exists ( select 1 from sales.salesorderheader soh where c.CustomerID =
 
 
 /*26.
-Her satış temsilcisi için, bugüne kadar aldığı toplam sipariş sayısı ve en son satış yaptığı müşterinin adı gösterilsin.*/
+Her satÃ½Ã¾ temsilcisi iÃ§in, bugÃ¼ne kadar aldÃ½Ã°Ã½ toplam sipariÃ¾ sayÃ½sÃ½ ve en son satÃ½Ã¾ yaptÃ½Ã°Ã½ mÃ¼Ã¾terinin adÃ½ gÃ¶sterilsin.*/
 
 with temsilci_siparis_sayisi as(
 select sp.BusinessEntityID as temsilci, count(soh.salesorderid) as SiparisSayisi
@@ -531,8 +531,8 @@ order by 2 desc
 
 
 
-/*27. Her ürünün, üretim maliyeti (StandardCost) ile satış fiyatı (ListPrice) arasındaki farkın yüzdesini hesaplayın.
-Bu oran %50’nin üzerindeyse “High Margin”, değilse “Low Margin” olarak etiketleyin.*/
+/*27. Her Ã¼rÃ¼nÃ¼n, Ã¼retim maliyeti (StandardCost) ile satÃ½Ã¾ fiyatÃ½ (ListPrice) arasÃ½ndaki farkÃ½n yÃ¼zdesini hesaplayÃ½n.
+Bu oran %50â€™nin Ã¼zerindeyse â€œHigh Marginâ€, deÃ°ilse â€œLow Marginâ€ olarak etiketleyin.*/
 
 select * from Production.Product
 
@@ -550,8 +550,8 @@ from urun_yuzde
 
 
 
-/*28. Satış tarihine göre, her sipariş için bir önceki siparişle arasındaki gün farkını bulun.
-Müşteri adı, sipariş tarihi ve fark gün sayısı gösterilsin.*/
+/*28. SatÃ½Ã¾ tarihine gÃ¶re, her sipariÃ¾ iÃ§in bir Ã¶nceki sipariÃ¾le arasÃ½ndaki gÃ¼n farkÃ½nÃ½ bulun.
+MÃ¼Ã¾teri adÃ½, sipariÃ¾ tarihi ve fark gÃ¼n sayÃ½sÃ½ gÃ¶sterilsin.*/
 
  select c.customerid, p.firstname+' '+p.lastname as musteriadi,  soh.SalesOrderID, soh.orderdate, 
 						datediff(day,lag(soh.orderdate)over(partition by c.customerid order by soh.orderdate),soh.orderdate) as gun_farki
@@ -561,8 +561,8 @@ Müşteri adı, sipariş tarihi ve fark gün sayısı gösterilsin.*/
 
 
 
-/*29. Her yıl için, o yılın toplam satış tutarını ve bir önceki yıla göre artış veya azalış oranını hesaplayın.
-Ayrıca artış gösteren yılları “Growth”, azalış gösterenleri “Decline” olarak sınıflandırın..*/
+/*29. Her yÃ½l iÃ§in, o yÃ½lÃ½n toplam satÃ½Ã¾ tutarÃ½nÃ½ ve bir Ã¶nceki yÃ½la gÃ¶re artÃ½Ã¾ veya azalÃ½Ã¾ oranÃ½nÃ½ hesaplayÃ½n.
+AyrÃ½ca artÃ½Ã¾ gÃ¶steren yÃ½llarÃ½ â€œGrowthâ€, azalÃ½Ã¾ gÃ¶sterenleri â€œDeclineâ€ olarak sÃ½nÃ½flandÃ½rÃ½n..*/
 
 with heryiltoplamtutar as (
 select year(soh.orderdate) as yil, sum(soh.totaldue) as toplamtutar
@@ -578,8 +578,8 @@ from heryiltoplamtutar
 
 
 
-/*30. Her müşterinin yaptığı ilk siparişte hangi satış temsilcisiyle çalıştığını bulun.
-Müşteri adı, sipariş tarihi ve satış temsilcisi adını gösterin.*/
+/*30. Her mÃ¼Ã¾terinin yaptÃ½Ã°Ã½ ilk sipariÃ¾te hangi satÃ½Ã¾ temsilcisiyle Ã§alÃ½Ã¾tÃ½Ã°Ã½nÃ½ bulun.
+MÃ¼Ã¾teri adÃ½, sipariÃ¾ tarihi ve satÃ½Ã¾ temsilcisi adÃ½nÃ½ gÃ¶sterin.*/
 
 ;with musterininilksiparisi as (
 select c.customerid as musteri, p.firstname+' '+p.lastname as musteriadi, soh.salespersonid as salesperson, soh.salesorderid as siparisid, soh.orderdate as tarih, 
@@ -600,8 +600,8 @@ where rn = 1
 
 
 
-/*31. Her satış temsilcisi için, en yüksek tutarlı siparişini ve bu siparişin tarihini bulun.
-Ayrıca satış tutarına göre temsilciler arasında sıralama yapın.*/
+/*31. Her satÃ½Ã¾ temsilcisi iÃ§in, en yÃ¼ksek tutarlÃ½ sipariÃ¾ini ve bu sipariÃ¾in tarihini bulun.
+AyrÃ½ca satÃ½Ã¾ tutarÃ½na gÃ¶re temsilciler arasÃ½nda sÃ½ralama yapÃ½n.*/
 
 
 with enyuksektutar as (
@@ -618,7 +618,7 @@ join sales.salesorderheader soh on eyt.salespersonid = soh.SalesPersonID and eyt
 
 
 
-/*Her ürün kategorisi için, son 3 yılda gerçekleşen toplam satış tutarlarını yıl bazında listeleyin.*/
+/*Her Ã¼rÃ¼n kategorisi iÃ§in, son 3 yÃ½lda gerÃ§ekleÃ¾en toplam satÃ½Ã¾ tutarlarÃ½nÃ½ yÃ½l bazÃ½nda listeleyin.*/
 
 with herurunkategori as (
 select  pc.name as kategoriAdi, year(soh.orderdate) as yil, sum(sod.linetotal) as taplamtutar
@@ -647,9 +647,9 @@ order by 1,2
 
 44.
 
-/*Satış detayları tablosunda, sipariş satırlarını toplam tutarına göre sıralayın ve
-her sipariş içindeki kalemlerin yüzdesini (LineTotal / SUM(LineTotal) OVER(PARTITION BY SalesOrderID)) hesaplayın.
-WINDOW FUNCTION kullanımı zorunludur.*/
+/*SatÃ½Ã¾ detaylarÃ½ tablosunda, sipariÃ¾ satÃ½rlarÃ½nÃ½ toplam tutarÃ½na gÃ¶re sÃ½ralayÃ½n ve
+her sipariÃ¾ iÃ§indeki kalemlerin yÃ¼zdesini (LineTotal / SUM(LineTotal) OVER(PARTITION BY SalesOrderID)) hesaplayÃ½n.
+WINDOW FUNCTION kullanÃ½mÃ½ zorunludur.*/
 
 select salesorderid, linetotal, sum(linetotal)over(partition by salesorderid) as toplamtutar,
 			round(linetotal * 100.0 / sum(linetotal)over(partition by salesorderid),2) as yuzde
@@ -662,9 +662,9 @@ from sales.SalesOrderDetail
 
 45
 
-Her ürün için, satıldığı en yüksek ve en düşük fiyatı bulun.
-Bu iki fiyat arasındaki farkı da (spread) gösterin.
-MAX(), MIN(), ve GROUP BY kullanın.
+Her Ã¼rÃ¼n iÃ§in, satÃ½ldÃ½Ã°Ã½ en yÃ¼ksek ve en dÃ¼Ã¾Ã¼k fiyatÃ½ bulun.
+Bu iki fiyat arasÃ½ndaki farkÃ½ da (spread) gÃ¶sterin.
+MAX(), MIN(), ve GROUP BY kullanÃ½n.
 
 select p.name as urunadi, max(sod.linetotal) as enyukseksatisfiyati, min(sod.linetotal) as endusuksatisfiyati,
 max(sod.linetotal) - min(sod.linetotal) as fark
@@ -675,9 +675,9 @@ group by p.name
 
 46.
 
-Her müşterinin sipariş verdiği son tarih ile ilk tarih arasındaki gün farkını hesaplayın.
-Bu fark 180 günden fazla olan müşteriler listelensin.
-DATEDIFF(), MIN(), MAX(), ve HAVING kullanın.
+Her mÃ¼Ã¾terinin sipariÃ¾ verdiÃ°i son tarih ile ilk tarih arasÃ½ndaki gÃ¼n farkÃ½nÃ½ hesaplayÃ½n.
+Bu fark 180 gÃ¼nden fazla olan mÃ¼Ã¾teriler listelensin.
+DATEDIFF(), MIN(), MAX(), ve HAVING kullanÃ½n.
 
 
 select customerid, min(orderdate) as ilksiparis, max(orderdate) sonsiparis,
@@ -688,9 +688,9 @@ having datediff(day,min(orderdate),max(orderdate)) > 180
 
 47.
 
-Her satış temsilcisi için, çalıştığı yıl içindeki toplam satış tutarını bulun.
-Ayrıca aynı temsilcinin bir önceki yılki satışına göre artış/azalış yüzdesini hesaplayın.
-CTE, LAG(), ve ROUND() fonksiyonlarını kullanın.
+Her satÃ½Ã¾ temsilcisi iÃ§in, Ã§alÃ½Ã¾tÃ½Ã°Ã½ yÃ½l iÃ§indeki toplam satÃ½Ã¾ tutarÃ½nÃ½ bulun.
+AyrÃ½ca aynÃ½ temsilcinin bir Ã¶nceki yÃ½lki satÃ½Ã¾Ã½na gÃ¶re artÃ½Ã¾/azalÃ½Ã¾ yÃ¼zdesini hesaplayÃ½n.
+CTE, LAG(), ve ROUND() fonksiyonlarÃ½nÃ½ kullanÃ½n.
 
 with satistemsilcisitopsatis as (
 select sp.businessentityid as satistemsilcisi, year(soh.orderdate) as yil , sum(soh.totaldue) as toplamtutar			
@@ -703,7 +703,7 @@ select satistemsilcisi, yil, toplamtutar,lag(toplamtutar)over(partition by satis
 from satistemsilcisitopsatis
 )
 select satistemsilcisi, yil, toplamtutar, gecenyil, round((toplamtutar - gecenyil)* 100.0 / gecenyil,2) as yuzdei,
-				case when gecenyil is null then 'İlk Yil'
+				case when gecenyil is null then 'Ãlk Yil'
 					when toplamtutar > gecenyil then 'artis'
 					else 'azalis'
 				end as Durum
@@ -714,9 +714,9 @@ from oncekiyil
 
 48.
 
-2023 yılında yapılan siparişlerde, hafta bazında toplam satış tutarlarını hesaplayın.
-Her haftanın satışını bir önceki haftaya göre karşılaştırarak artış yüzdesini bulun.
-DATEPART(WEEK, OrderDate), SUM(), ve LAG() kullanın.
+2023 yÃ½lÃ½nda yapÃ½lan sipariÃ¾lerde, hafta bazÃ½nda toplam satÃ½Ã¾ tutarlarÃ½nÃ½ hesaplayÃ½n.
+Her haftanÃ½n satÃ½Ã¾Ã½nÃ½ bir Ã¶nceki haftaya gÃ¶re karÃ¾Ã½laÃ¾tÃ½rarak artÃ½Ã¾ yÃ¼zdesini bulun.
+DATEPART(WEEK, OrderDate), SUM(), ve LAG() kullanÃ½n.
 
 
 with haftaliktoplamsatis as (
@@ -739,8 +739,8 @@ order by hafta
 
 49.
 
-Her ürün kategorisinde, ortalama satış fiyatı genel ortalama fiyatın üzerinde olan ürünleri listeleyin.
-AVG(), HAVING, ve alt sorgu kullanın.
+Her Ã¼rÃ¼n kategorisinde, ortalama satÃ½Ã¾ fiyatÃ½ genel ortalama fiyatÃ½n Ã¼zerinde olan Ã¼rÃ¼nleri listeleyin.
+AVG(), HAVING, ve alt sorgu kullanÃ½n.
 
 
 select p.name as urun_adi, pc.name as kategori_adi, avg(sod.unitprice) as ortalama_tutar
@@ -755,9 +755,9 @@ order by kategori_adi
 
 50.
 
-Müşterilerin sipariş verdikleri en yoğun günleri (haftanın günü bazında) bulun.
-Her müşteri için, en çok sipariş verdiği DATENAME(WEEKDAY, OrderDate) değerini ve o güne ait sipariş sayısını gösterin.
-CTE, COUNT(), RANK() ve DATEPART() kullanın.
+MÃ¼Ã¾terilerin sipariÃ¾ verdikleri en yoÃ°un gÃ¼nleri (haftanÃ½n gÃ¼nÃ¼ bazÃ½nda) bulun.
+Her mÃ¼Ã¾teri iÃ§in, en Ã§ok sipariÃ¾ verdiÃ°i DATENAME(WEEKDAY, OrderDate) deÃ°erini ve o gÃ¼ne ait sipariÃ¾ sayÃ½sÃ½nÃ½ gÃ¶sterin.
+CTE, COUNT(), RANK() ve DATEPART() kullanÃ½n.
 
 with musterininenyogungunu as(
 select customerid as musteri, datename(weekday, orderdate) as haftaningunleri, count(salesorderid) as siparissayisi,
